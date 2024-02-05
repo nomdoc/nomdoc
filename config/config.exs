@@ -1,0 +1,92 @@
+# This file is responsible for configuring your application
+# and its dependencies with the aid of the Config module.
+#
+# This configuration file is loaded before any dependency and
+# is restricted to this project.
+
+# General application configuration
+import Config
+
+config :nomdoc,
+  ecto_repos: [Nomdoc.Repo],
+  generators: [timestamp_type: :utc_datetime, binary_id: true],
+  environment: config_env()
+
+# WARNING: Configure all endpoints to not start a server in order to avoid
+# endpoints bypassing MainProxy.
+
+# Endpoint for www.nomdoc.com
+config :nomdoc, NomdocWeb.Endpoint,
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
+  render_errors: [
+    formats: [html: NomdocWeb.ErrorHTML, json: NomdocWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: Nomdoc.PubSub,
+  live_view: [signing_salt: "N+jvNdeU3jzC5shYPgOvsQhhrrh0cZ/g095S+YCk5oYvedvw2rkrFKHmrXd5jctT"],
+  server: false
+
+# Endpoint for console.nomdoc.com
+config :nomdoc, ConsoleWeb.Endpoint,
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
+  render_errors: [
+    formats: [html: ConsoleWeb.ErrorHTML, json: ConsoleWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: Nomdoc.PubSub,
+  live_view: [signing_salt: "N+jvNdeU3jzC5shYPgOvsQhhrrh0cZ/g095S+YCk5oYvedvw2rkrFKHmrXd5jctT"],
+  server: false
+
+# Endpoint for workspace.nomdoc.com
+config :nomdoc, WorkspaceWeb.Endpoint,
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
+  render_errors: [
+    formats: [html: WorkspaceWeb.ErrorHTML, json: WorkspaceWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: Nomdoc.PubSub,
+  live_view: [signing_salt: "N+jvNdeU3jzC5shYPgOvsQhhrrh0cZ/g095S+YCk5oYvedvw2rkrFKHmrXd5jctT"],
+  server: false
+
+# Configures the Repo
+config :nomdoc, Nomdoc.Repo,
+  types: Nomdoc.Repo.PostgrexTypes,
+  migration_primary_key: [name: :id, type: :binary_id]
+
+# Configures the mailer
+#
+# By default it uses the "Local" adapter which stores the emails
+# locally. You can see the emails in your browser, at "/dev/mailbox".
+#
+# For production it's recommended to configure a different adapter
+# at the `config/runtime.exs`.
+config :nomdoc, Nomdoc.Mailer, adapter: Swoosh.Adapters.Local
+
+# Configures Oban
+config :nomdoc, Oban,
+  queues: [default: 10, mailers: 20],
+  repo: Nomdoc.Repo
+
+# Configure tailwind (the version is required)
+config :tailwind,
+  version: "3.4.1",
+  default: [
+    args: ~w(
+      --config=tailwind.config.js
+      --input=css/common.css
+      --output=../priv/static/assets/common.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
+# Configures Elixir's Logger
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:remote_ip, :request_id]
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{config_env()}.exs"

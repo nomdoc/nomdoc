@@ -1,0 +1,16 @@
+# fly.toml app configuration file generated for nomdoc on 2024-01-26T08:20:58+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "nomdoc"
+primary_region = "sin"
+kill_signal = "SIGTERM"
+
+[build]
+
+[deploy]
+release_command = "/app/bin/migrate"
+
+[env]
+PORT = "8080"

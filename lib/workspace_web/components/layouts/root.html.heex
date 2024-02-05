@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" class="font-inter slashed-zero h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix={" | #{maybe(assigns.workspace.display_name) || "Nomdoc"}"}>
+      <%= assigns[:page_title] || "Nomdoc" %>
+    </.live_title>
+    <link phx-track-static rel="preload" href={~p"/fonts/Inter-Variable-Font.ttf"} as="font" crossorigin="anonymous" />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/common.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/common.js"}>
+    </script>
+    <%= if assigns[:load_workspace_js] do %>
+      <script defer phx-track-static type="text/javascript" src={~p"/assets/workspace.js"}>
+      </script>
+    <% end %>
+  </head>
+  <body class="antialiased h-full bg-ui-primary min-w-[320px]">
+    <%= @inner_content %>
+  </body>
+</html>
