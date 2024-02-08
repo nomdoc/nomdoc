@@ -7,6 +7,31 @@ import Config
 # before starting your production server.
 config :nomdoc, NomdocWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
+# Configures Nomdoc proxy backends
+config :nomdoc, NomdocProxy,
+  backends: [
+    %{
+      # Matches www.nomdoc.com
+      host: ~r/^www\.nomdoc\.com$/,
+      phoenix_endpoint: NomdocWeb.Endpoint
+    },
+    %{
+      # Matches console.nomdoc.com
+      host: ~r/^console\.nomdoc\.com$/,
+      phoenix_endpoint: ConsoleWeb.Endpoint
+    },
+    %{
+      # Matches workspace.nomdoc.com
+      host: ~r/^workspace\.nomdoc\.com$/,
+      phoenix_endpoint: WorkspaceWeb.Endpoint
+    },
+    %{
+      # Matches healthcare.nomdoc.com
+      host: ~r/^healthcare\.nomdoc\.com$/,
+      phoenix_endpoint: HealthcareWeb.Endpoint
+    }
+  ]
+
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: Nomdoc.Finch
 

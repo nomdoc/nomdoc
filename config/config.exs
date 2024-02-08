@@ -34,7 +34,7 @@ config :nomdoc, ConsoleWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Nomdoc.PubSub,
-  live_view: [signing_salt: "N+jvNdeU3jzC5shYPgOvsQhhrrh0cZ/g095S+YCk5oYvedvw2rkrFKHmrXd5jctT"],
+  live_view: [signing_salt: "94z7N0iC3cVFmT/3f25ePX8SbHzef+HIpcwwcNUXgUg9nhHRbeAfVT8ZGF/Xltyq"],
   server: false
 
 # Endpoint for workspace.nomdoc.com
@@ -45,7 +45,18 @@ config :nomdoc, WorkspaceWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Nomdoc.PubSub,
-  live_view: [signing_salt: "N+jvNdeU3jzC5shYPgOvsQhhrrh0cZ/g095S+YCk5oYvedvw2rkrFKHmrXd5jctT"],
+  live_view: [signing_salt: "WgpRMeSiUl5LIwe4gmUOSIEtOxpFlYSaJx+PODFl1t7vu3AdjKMJIvPBCRuM2q8L"],
+  server: false
+
+# Endpoint for healthcare.nomdoc.com
+config :nomdoc, HealthcareWeb.Endpoint,
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
+  render_errors: [
+    formats: [html: HealthcareWeb.ErrorHTML, json: HealthcareWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: Nomdoc.PubSub,
+  live_view: [signing_salt: "yw4HVkv8AZu2Ury2wH5WxkmEVICjh15UNp2jw1S8LoyrouqdQc5vzMDbyHsGntyq"],
   server: false
 
 # Configures the Repo

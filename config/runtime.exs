@@ -56,25 +56,6 @@ if config_env() == :prod do
     url: [host: "workspace.nomdoc.com"],
     secret_key_base: secret_key_base
 
-  config :nomdoc, NomdocProxy,
-    backends: [
-      %{
-        # Matches www.nomdoc.com
-        host: ~r/^www\.nomdoc\.com$/,
-        phoenix_endpoint: NomdocWeb.Endpoint
-      },
-      %{
-        # Matches console.nomdoc.com
-        host: ~r/^console\.nomdoc\.com$/,
-        phoenix_endpoint: ConsoleWeb.Endpoint
-      },
-      %{
-        # Matches workspace.nomdoc.com
-        host: ~r/^workspace\.nomdoc\.com$/,
-        phoenix_endpoint: WorkspaceWeb.Endpoint
-      }
-    ]
-
   config :main_proxy,
     http: [
       # Enable IPv6 and bind on all interfaces.

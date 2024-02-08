@@ -21,7 +21,7 @@ config :nomdoc, NomdocWeb.Endpoint,
   code_reloader: true,
   debug_errors: true,
   force_watchers: true,
-  secret_key_base: "/R96RwEJPE5LZTJr12CGv4f3t4JrK43WLw8M92g4Ky8UpZX/bPZ0F2sb03l/JNnB",
+  secret_key_base: "Dd9JYLO/TH8do4EcW5tpx+fKyVvO8A6kzdaOzm1fUAvyO0GsKTzIOkXTJ9OzTF/y",
   watchers: [
     node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)],
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
@@ -35,6 +35,12 @@ config :nomdoc, ConsoleWeb.Endpoint,
 
 config :nomdoc, WorkspaceWeb.Endpoint,
   url: [host: "workspace.nomdoc.net"],
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: "Dd9JYLO/TH8do4EcW5tpx+fKyVvO8A6kzdaOzm1fUAvyO0GsKTzIOkXTJ9OzTF/y"
+
+config :nomdoc, HealthcareWeb.Endpoint,
+  url: [host: "healthcare.nomdoc.net"],
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "Dd9JYLO/TH8do4EcW5tpx+fKyVvO8A6kzdaOzm1fUAvyO0GsKTzIOkXTJ9OzTF/y"
@@ -92,6 +98,16 @@ config :nomdoc, WorkspaceWeb.Endpoint,
     ]
   ]
 
+config :nomdoc, HealthcareWeb.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/nomdoc_web/(components)/.*(ex|heex)$",
+      ~r"lib/healthcare_web/(controllers|live|components)/.*(ex|heex)$"
+    ]
+  ]
+
 # Configures Nomdoc proxy backends
 config :nomdoc, NomdocProxy,
   backends: [
@@ -109,6 +125,11 @@ config :nomdoc, NomdocProxy,
       # Matches workspace.nomdoc.net
       host: ~r/^workspace\.nomdoc\.net$/,
       phoenix_endpoint: WorkspaceWeb.Endpoint
+    },
+    %{
+      # Matches health.nomdoc.net
+      host: ~r/^healthcare\.nomdoc\.net$/,
+      phoenix_endpoint: HealthcareWeb.Endpoint
     }
   ]
 
