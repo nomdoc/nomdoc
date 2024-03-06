@@ -7,7 +7,7 @@ defmodule WorkspaceWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, html: {WorkspaceWeb.Layouts, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
+    plug WorkspaceWeb.PutSecureBrowserHeaders
   end
 
   pipeline :api do

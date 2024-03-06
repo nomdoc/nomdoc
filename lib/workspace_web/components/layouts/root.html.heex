@@ -9,10 +9,16 @@
     </.live_title>
     <link phx-track-static rel="preload" href={~p"/fonts/Inter-Variable-Font.ttf"} as="font" crossorigin="anonymous" />
     <link phx-track-static rel="stylesheet" href={~p"/assets/common.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/common.js"}>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/common.js"} nonce={assigns[:csp_nonce_value]}>
     </script>
     <%= if assigns[:load_workspace_js] do %>
-      <script defer phx-track-static type="text/javascript" src={~p"/assets/workspace.js"}>
+      <script
+        defer
+        phx-track-static
+        type="text/javascript"
+        src={~p"/assets/workspace.js"}
+        nonce={assigns[:csp_nonce_value]}
+      >
       </script>
     <% end %>
   </head>
