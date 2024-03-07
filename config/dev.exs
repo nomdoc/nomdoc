@@ -140,7 +140,14 @@ config :nomdoc, dev_routes: true
 config :main_proxy,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000]
+  http: [ip: {127, 0, 0, 1}, port: 4000],
+  https: [
+    ip: {127, 0, 0, 1},
+    port: 4001,
+    cipher_suite: :strong,
+    certfile: Path.expand("../priv/cert/selfsigned.pem", __DIR__),
+    keyfile: Path.expand("../priv/cert/selfsigned_key.pem", __DIR__)
+  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
