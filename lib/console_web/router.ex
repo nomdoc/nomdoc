@@ -8,6 +8,7 @@ defmodule ConsoleWeb.Router do
     plug :put_root_layout, html: {ConsoleWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug ConsoleWeb.FetchConsoleUser
   end
 
   pipeline :api do
