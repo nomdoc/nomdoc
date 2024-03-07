@@ -9,7 +9,7 @@ defmodule WorkspaceWeb.PutSecureBrowserHeaders do
   end
 
   @impl Plug
-  def call(conn, _opts) do
+  def call(%Plug.Conn{} = conn, _opts) do
     nonce = generate_nonce()
     csp_headers = csp_headers(nonce)
 
