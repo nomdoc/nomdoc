@@ -39,6 +39,8 @@ defmodule Nomdoc.MixProject do
       {:geo_postgis, "3.5.0"},
       {:gettext, "0.24.0"},
       {:jason, "1.4.1"},
+      {:joken, "2.6.0"},
+      {:joken_jwks, "1.6.0"},
       {:main_proxy, "0.3.1"},
       {:maybe, "1.0.0"},
       {:oban, "2.17.2"},
