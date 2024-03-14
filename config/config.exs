@@ -76,7 +76,11 @@ config :nomdoc, Nomdoc.Mailer, adapter: Swoosh.Adapters.Local
 # Configures Cloudflare
 config :nomdoc, Nomdoc.Cloudflare,
   jwks_url: "https://nomdoc.cloudflareaccess.com/cdn-cgi/access/certs",
-  application_token_validator: Nomdoc.Cloudflare.ApplicationTokenDefaultValidator
+  application_token_validator: Nomdoc.Cloudflare.ApplicationTokenDefaultValidator,
+  application_token_iss: "https://nomdoc.cloudflareaccess.com",
+  application_token_aud: [
+    "35889312e2ad1658fedfcb1369191fe4d647163c63116ef1bbdf14b4f2464772"
+  ]
 
 # Configures Google OAuth
 config :nomdoc, Nomdoc.GoogleOAuth,

@@ -28,15 +28,21 @@ defmodule Nomdoc.Cloudflare.ApplicationTokenDefaultValidator do
 
   use Joken.Config, default_signer: nil
 
-  add_hook(JokenJwks, strategy: Nomdoc.Cloudflare.JwksStrategy)
+  alias Nomdoc.Cloudflare
 
-  @nomdoc_console_aud_tag "35889312e2ad1658fedfcb1369191fe4d647163c63116ef1bbdf14b4f2464772"
+  add_hook(JokenJwks, strategy: Nomdoc.Cloudflare.JwksStrategy)
 
   @impl Joken.Config
   def token_config do
     default_claims(skip: [:aud, :iss, :jti])
-    |> add_claim("iss", nil, &(&1 == "https://nomdoc.cloudflareaccess.com"))
-    |> add_claim("aud", nil, &(is_list(&1) && @nomdoc_console_aud_tag in &1))
+    |> add_claim("iss", nil, &(&1 == Cloudflare.Config.application_token_iss()))
+    |> add_claim("aud", nil, &(is_list(&1) && overlap?(&1, Cloudflare.Config.application_token_aud())))
     |> add_claim("email", nil, &is_binary/1)
+  end
+
+  defp overlap?(list1, list2) do
+    MapSet.new(list1)
+    |> MapSet.disjoint?(MapSet.new(list2))
+    |> Kernel.not()
   end
 end
