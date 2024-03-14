@@ -78,6 +78,12 @@ config :nomdoc, Nomdoc.Cloudflare,
   jwks_url: "https://nomdoc.cloudflareaccess.com/cdn-cgi/access/certs",
   application_token_validator: Nomdoc.Cloudflare.ApplicationTokenDefaultValidator
 
+# Configures Google OAuth
+config :nomdoc, Nomdoc.GoogleOAuth,
+  adapter: Nomdoc.GoogleOAuth.HttpClient,
+  oauth_url: "https://accounts.google.com/o/oauth2/v2/auth",
+  token_url: "https://oauth2.googleapis.com/token"
+
 # Configures Oban
 config :nomdoc, Oban,
   queues: [default: 10, mailers: 20],

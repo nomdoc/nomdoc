@@ -116,3 +116,7 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 end
+
+config :nomdoc, Nomdoc.GoogleOAuth,
+  client_id: env!("GOOGLE_OAUTH_CLIENT_ID", :string!),
+  client_secret: env!("GOOGLE_OAUTH_CLIENT_SECRET", :string!)

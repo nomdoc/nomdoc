@@ -53,9 +53,11 @@ defmodule Nomdoc.MixProject do
       {:plug_cowboy, "2.6.1"},
       {:postgrex, "0.17.4"},
       {:remote_ip, "1.1.0"},
+      {:req, "0.4.13"},
       {:swoosh, "1.14.4"},
       {:telemetry_metrics, "0.6.2"},
       {:telemetry_poller, "1.0.0"},
+      {:typed_struct, "0.3.0"},
       {:uniq, "0.6.1"},
 
       # Dev or build libs
