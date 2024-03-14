@@ -145,8 +145,8 @@ config :main_proxy,
     ip: {127, 0, 0, 1},
     port: 4001,
     cipher_suite: :strong,
-    certfile: Path.expand("../priv/cert/selfsigned.pem", __DIR__),
-    keyfile: Path.expand("../priv/cert/selfsigned_key.pem", __DIR__)
+    certfile: Path.expand("../priv/cert/_wildcard.nomdoc.net.pem", __DIR__),
+    keyfile: Path.expand("../priv/cert/_wildcard.nomdoc.net-key.pem", __DIR__)
   ]
 
 # Do not include metadata nor timestamps in development logs
