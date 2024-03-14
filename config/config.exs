@@ -73,6 +73,11 @@ config :nomdoc, Nomdoc.Repo,
 # at the `config/runtime.exs`.
 config :nomdoc, Nomdoc.Mailer, adapter: Swoosh.Adapters.Local
 
+# Configures Cloudflare
+config :nomdoc, Nomdoc.Cloudflare,
+  jwks_url: "https://nomdoc.cloudflareaccess.com/cdn-cgi/access/certs",
+  application_token_validator: Nomdoc.Cloudflare.ApplicationTokenDefaultValidator
+
 # Configures Oban
 config :nomdoc, Oban,
   queues: [default: 10, mailers: 20],
