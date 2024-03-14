@@ -34,6 +34,7 @@ defmodule Nomdoc.MixProject do
     [
       {:dns_cluster, "0.1.2"},
       {:dotenvy, "0.8.0"},
+      {:ecto_enum, "1.4.0"},
       {:ecto_sql, "3.11.1"},
       {:finch, "0.17.0"},
       {:geo_postgis, "3.5.0"},
@@ -55,6 +56,7 @@ defmodule Nomdoc.MixProject do
       {:swoosh, "1.14.4"},
       {:telemetry_metrics, "0.6.2"},
       {:telemetry_poller, "1.0.0"},
+      {:uniq, "0.6.1"},
 
       # Dev or build libs
       {:credo, "1.7.3", only: [:dev, :test], runtime: false},
