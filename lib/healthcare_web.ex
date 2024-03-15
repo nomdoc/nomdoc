@@ -44,7 +44,6 @@ defmodule HealthcareWeb do
 
       import Plug.Conn
       import NomdocWeb.Gettext
-      import HealthcareWeb.ControllerHelpers
 
       unquote(verified_routes())
     end
@@ -94,8 +93,6 @@ defmodule HealthcareWeb do
       # Core UI components and translation
       import NomdocWeb.CoreComponents
       import NomdocWeb.Gettext
-
-      import Maybe
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
