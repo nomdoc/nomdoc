@@ -30,7 +30,7 @@ defmodule Nomdoc.Cloudflare.ApplicationTokenDefaultValidator do
 
   alias Nomdoc.Cloudflare
 
-  add_hook(JokenJwks, strategy: Nomdoc.Cloudflare.JwksStrategy)
+  add_hook(JokenJwks, strategy: Nomdoc.Cloudflare.Jwks)
 
   @impl Joken.Config
   def token_config do
