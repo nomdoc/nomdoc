@@ -1,14 +1,38 @@
 defmodule NomdocWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :nomdoc
 
+  # If a cookie's name begins with "__Host-", the cookie MUST be:
+  #
+  #   1. Set with a "Secure" attribute
+  #
+  #   2. Set from a URI whose "scheme" is considered "secure" by the user agent.
+  #
+  #   3. Sent only to the host which set the cookie.  That is, a cookie named
+  #      "__Host-cookie1" set from "https://example.com" MUST NOT contain a
+  #      "Domain" attribute (and will therefore be sent only to "example.com",
+  #      and not to "subdomain.example.com").
+  #
+  #   4. Sent to every request for a host.  That is, a cookie named
+  #      "__Host-cookie1" MUST contain a "Path" attribute with a value of "/".
+  #
+  # For more info, see
+  # https://datatracker.ietf.org/doc/html/draft-west-cookie-prefixes-05#section-3.2
+  #
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
+  #
+  # See https://hexdocs.pm/plug/1.14.2/Plug.Session.html#module-options and
+  # https://hexdocs.pm/plug/1.14.2/Plug.Session.COOKIE.html#module-options for
+  # more options.
   @session_options [
     store: :cookie,
-    key: "_nomdoc_key",
-    signing_salt: "1vqcoz9P",
-    same_site: "Lax"
+    signing_salt: "Rwk9knWk3GU5zIA28aQ4kkcT8WUuT6D6DsFkkg55uhbtDtezq/GE0/XG3jACOp2k",
+    key: "__Host-SESSION",
+    path: "/",
+    http_only: true,
+    secure: true,
+    same_site: "Strict"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

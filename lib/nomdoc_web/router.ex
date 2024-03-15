@@ -1,6 +1,8 @@
 defmodule NomdocWeb.Router do
   use NomdocWeb, :router
 
+  import NomdocWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule NomdocWeb.Router do
     plug :put_root_layout, html: {NomdocWeb.Layouts, :root}
     plug :protect_from_forgery
     plug NomdocWeb.PutSecureBrowserHeaders
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -18,6 +21,11 @@ defmodule NomdocWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+  end
+
+  scope "/", NomdocWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
     get "/log-in", LoginController, :new
     get "/oauth/google", OAuthController, :google
   end
