@@ -150,7 +150,7 @@ config :main_proxy,
   ]
 
 # Do not include metadata nor timestamps in development logs
-config :logger, :console, format: "$time $metadata[$level] $message\n"
+config :logger, :console, format: "$date $time $metadata[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
