@@ -3,3 +3,33 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+@font-face {
+  font-family: 'Inter UI';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/Inter-Variable-Font.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter UI';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/Inter-Variable-Font.ttf") format('truetype');
+}
+
+:root {
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+
+.nomdoc-logo {
+  display: inline-block;
+  -webkit-mask: url(/images/nomdoc-logo.svg);
+  mask: url(/images/nomdoc-logo.svg);
+  mask-repeat: no-repeat;
+  background-color: currentColor;
+  width: 1.5rem;
+  height: 1.5rem;
+}

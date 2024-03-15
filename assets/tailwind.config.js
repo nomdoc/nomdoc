@@ -7,6 +7,8 @@ const fs = require("fs")
 const path = require("path")
 const svgo = require("svgo")
 const plugin = require("tailwindcss/plugin")
+const themeSwapper = require("tailwindcss-theme-swapper")
+const themes = require("./themes")
 
 module.exports = {
   content: [
@@ -20,23 +22,9 @@ module.exports = {
     hoverOnlyWhenSupported: true
   },
   theme: {
-    extend: {
-      fontFamily: {
-        inter: [
-          "'Inter UI'",
-          "SF Pro Display",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Oxygen",
-          "Ubuntu",
-          "Cantarell",
-          "Open Sans",
-          "Helvetica Neue",
-          "sans-serif"
-        ]
-      }
+    fontFamily: {
+      inter:
+        "'Inter UI', -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif"
     }
   },
   plugins: [
@@ -127,13 +115,24 @@ module.exports = {
               "mask-repeat": "no-repeat",
               "background-color": "currentColor",
               "display": "inline-block",
-              "width": "24px",
-              "height": "24px"
+              "width": "1.5rem",
+              "height": "1.5rem"
             }
           }
         },
         { values }
       )
+    }),
+    themeSwapper({
+      themes: [
+        // The only required theme is `base`. Every property used in
+        // other themes must exist in here.
+        {
+          name: "base",
+          selectors: [":root"],
+          theme: themes.base
+        }
+      ]
     })
   ]
 }
