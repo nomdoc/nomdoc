@@ -7,7 +7,7 @@ defmodule Nomdoc.GoogleOAuth do
 
   @callback token(binary(), Keyword.t()) :: {:ok, map()} | {:error, :invalid_authorization_code}
 
-  @callback profile(map()) :: GoogleOAuth.GoogleAccount.t()
+  @callback userinfo(map()) :: {:ok, Joken.claims()} | {:error, Joken.error_reason()}
 
   def authorization_url(opts) do
     GoogleOAuth.Config.adapter().authorization_url(opts)
@@ -17,7 +17,7 @@ defmodule Nomdoc.GoogleOAuth do
     GoogleOAuth.Config.adapter().token(authorization_code, opts)
   end
 
-  def profile(token) do
-    GoogleOAuth.Config.adapter().profile(token)
+  def userinfo(token) do
+    GoogleOAuth.Config.adapter().userinfo(token)
   end
 end

@@ -58,9 +58,7 @@ defmodule Nomdoc.GoogleOAuth.HttpClient do
   Retrieves info from `id_token`.
   """
   @impl GoogleOAuth
-  def profile(token) do
-    {:ok, claims} = Joken.peek_claims(token["id_token"])
-
-    GoogleOAuth.GoogleAccount.build(claims)
+  def userinfo(token) do
+    GoogleOAuth.IdToken.verify_and_validate(token["id_token"])
   end
 end

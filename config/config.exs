@@ -85,8 +85,14 @@ config :nomdoc, Nomdoc.Cloudflare,
 # Configures Google OAuth
 config :nomdoc, Nomdoc.GoogleOAuth,
   adapter: Nomdoc.GoogleOAuth.HttpClient,
+  jwks_url: "https://www.googleapis.com/oauth2/v3/certs",
   oauth_url: "https://accounts.google.com/o/oauth2/v2/auth",
-  token_url: "https://oauth2.googleapis.com/token"
+  token_url: "https://oauth2.googleapis.com/token",
+  id_token_validator: Nomdoc.GoogleOAuth.IdTokenDefaultValidator,
+  id_token_iss: [
+    "https://accounts.google.com",
+    "accounts.google.com"
+  ]
 
 # Configures Oban
 config :nomdoc, Oban,

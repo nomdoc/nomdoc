@@ -7,6 +7,10 @@ defmodule Nomdoc.GoogleOAuth.Config do
     Application.fetch_env!(:nomdoc, @key)[:adapter]
   end
 
+  def jwks_url do
+    Application.fetch_env!(:nomdoc, @key)[:jwks_url]
+  end
+
   def oauth_url do
     Application.fetch_env!(:nomdoc, @key)[:oauth_url]
   end
@@ -21,5 +25,13 @@ defmodule Nomdoc.GoogleOAuth.Config do
 
   def client_secret do
     Application.fetch_env!(:nomdoc, @key)[:client_secret]
+  end
+
+  def id_token_validator do
+    Application.fetch_env!(:nomdoc, @key)[:id_token_validator]
+  end
+
+  def id_token_iss do
+    Application.fetch_env!(:nomdoc, @key)[:id_token_iss]
   end
 end

@@ -17,7 +17,8 @@ defmodule NomdocApplication do
       # Start a worker by calling: Nomdoc.Worker.start_link(arg)
       # {Nomdoc.Worker, arg},
       {Oban, Application.fetch_env!(:nomdoc, Oban)},
-      Nomdoc.Cloudflare.JwksStrategy,
+      Nomdoc.Cloudflare.Jwks,
+      Nomdoc.GoogleOAuth.Jwks,
       # Start to serve requests, typically the last entry
       NomdocWeb.Endpoint,
       ConsoleWeb.Endpoint,
