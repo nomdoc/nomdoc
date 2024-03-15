@@ -3,21 +3,21 @@ defmodule Nomdoc.GoogleOAuth do
 
   alias Nomdoc.GoogleOAuth
 
-  @callback generate_authorization_url(Keyword.t()) :: binary()
+  @callback authorization_url(Keyword.t()) :: binary()
 
-  @callback get_token(binary(), Keyword.t()) :: {:ok, map()} | {:error, :invalid_authorization_code}
+  @callback token(binary(), Keyword.t()) :: {:ok, map()} | {:error, :invalid_authorization_code}
 
-  @callback get_google_account(map()) :: GoogleOAuth.GoogleAccount.t()
+  @callback profile(map()) :: GoogleOAuth.GoogleAccount.t()
 
-  def generate_authorization_url(opts) do
-    GoogleOAuth.Config.adapter().generate_authorization_url(opts)
+  def authorization_url(opts) do
+    GoogleOAuth.Config.adapter().authorization_url(opts)
   end
 
-  def get_token(authorization_code, opts) do
-    GoogleOAuth.Config.adapter().get_token(authorization_code, opts)
+  def token(authorization_code, opts) do
+    GoogleOAuth.Config.adapter().token(authorization_code, opts)
   end
 
-  def get_google_account(token) do
-    GoogleOAuth.Config.adapter().get_google_account(token)
+  def profile(token) do
+    GoogleOAuth.Config.adapter().profile(token)
   end
 end

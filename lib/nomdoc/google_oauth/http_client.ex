@@ -10,7 +10,8 @@ defmodule Nomdoc.GoogleOAuth.HttpClient do
 
   See https://developers.google.com/identity/protocols/oauth2/web-server#creatingclient
   """
-  def generate_authorization_url(opts) do
+  @impl GoogleOAuth
+  def authorization_url(opts) do
     {redirect_uri, opts} = Keyword.pop!(opts, :redirect_uri)
     {scopes, []} = Keyword.pop!(opts, :scopes)
 
@@ -35,7 +36,8 @@ defmodule Nomdoc.GoogleOAuth.HttpClient do
   @doc """
   Retrieves Google OAuth token using authorization code.
   """
-  def get_token(authorization_code, opts) do
+  @impl GoogleOAuth
+  def token(authorization_code, opts) do
     {redirect_uri, []} = Keyword.pop!(opts, :redirect_uri)
 
     params = [
@@ -55,7 +57,8 @@ defmodule Nomdoc.GoogleOAuth.HttpClient do
   @doc """
   Retrieves info from `id_token`.
   """
-  def get_google_account(token) do
+  @impl GoogleOAuth
+  def profile(token) do
     {:ok, claims} = Joken.peek_claims(token["id_token"])
 
     GoogleOAuth.GoogleAccount.build(claims)
