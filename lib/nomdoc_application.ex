@@ -23,6 +23,7 @@ defmodule NomdocApplication do
       NomdocWeb.Endpoint,
       ConsoleWeb.Endpoint,
       WorkspaceWeb.Endpoint,
+      HealthcareWeb.Endpoint,
       NomdocProxy
     ]
 
@@ -39,6 +40,7 @@ defmodule NomdocApplication do
     NomdocWeb.Endpoint.config_change(changed, removed)
     ConsoleWeb.Endpoint.config_change(changed, removed)
     WorkspaceWeb.Endpoint.config_change(changed, removed)
+    HealthcareWeb.Endpoint.config_change(changed, removed)
 
     :ok
   end
