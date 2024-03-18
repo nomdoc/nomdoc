@@ -5,7 +5,7 @@ defmodule Nomdoc.Accounts.User do
 
   schema "users" do
     field :email_address, :string
-    field :google_id, :string
+    field :google_account_id, :string
 
     timestamps()
   end

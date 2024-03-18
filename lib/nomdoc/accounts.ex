@@ -12,7 +12,7 @@ defmodule Nomdoc.Accounts do
   @session_validity_in_days 60
 
   @doc """
-  Gets a user by Google ID and email address.
+  Gets a user by Google Account ID and email address.
 
   ## Examples
 
@@ -23,8 +23,8 @@ defmodule Nomdoc.Accounts do
       nil
 
   """
-  def get_user_by_google_id(google_id) do
-    Repo.get_by(User, google_id: google_id)
+  def get_user_by_google_account_id(google_account_id) do
+    Repo.get_by(User, google_account_id: google_account_id)
   end
 
   @doc """
@@ -46,9 +46,9 @@ defmodule Nomdoc.Accounts do
 
   defp registration_changeset(user, attrs, opts) do
     user
-    |> cast(attrs, [:email_address, :google_id])
+    |> cast(attrs, [:email_address, :google_account_id])
     |> validate_email_address(opts)
-    |> validate_google_id()
+    |> validate_google_account_id()
   end
 
   defp validate_email_address(changeset, opts) do
@@ -71,11 +71,11 @@ defmodule Nomdoc.Accounts do
     end
   end
 
-  defp validate_google_id(changeset) do
+  defp validate_google_account_id(changeset) do
     changeset
-    |> validate_required([:google_id])
-    |> unsafe_validate_unique(:google_id, Repo)
-    |> unique_constraint(:google_id)
+    |> validate_required([:google_account_id])
+    |> unsafe_validate_unique(:google_account_id, Repo)
+    |> unique_constraint(:google_account_id)
   end
 
   @doc """

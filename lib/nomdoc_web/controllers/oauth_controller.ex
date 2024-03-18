@@ -9,7 +9,7 @@ defmodule NomdocWeb.OAuthController do
     with {:ok, authorization_code} <- get_google_authorization_code(conn, params),
          {:ok, token} <- get_google_token(conn, authorization_code),
          {:ok, claims} <- get_google_userinfo(conn, token),
-         maybe_user <- Accounts.get_user_by_google_id(claims["sub"]),
+         maybe_user <- Accounts.get_user_by_google_account_id(claims["sub"]),
          user <- maybe_register_user(maybe_user, claims) do
       conn
       |> UserAuth.log_in_user(user)
@@ -40,7 +40,7 @@ defmodule NomdocWeb.OAuthController do
   end
 
   defp maybe_register_user(nil, claims) do
-    {:ok, user} = Accounts.register_user(%{google_id: claims["sub"], email_address: claims["email"]})
+    {:ok, user} = Accounts.register_user(%{google_account_id: claims["sub"], email_address: claims["email"]})
 
     user
   end
