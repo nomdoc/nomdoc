@@ -12,7 +12,7 @@ defmodule NomdocWeb.UserAuth do
   # If you want bump or reduce this value, also change
   # the token expiry itself in UserToken.
   @max_age 30 * 24 * 60 * 60
-  @remember_me_cookie "__Host-REMEMBER"
+  @remember_me_cookie "__Host-AUTH_TOKEN"
   # See https://hexdocs.pm/plug/1.14.2/Plug.Conn.html#put_resp_cookie/4-options
   # for more options.
   @remember_me_options [
