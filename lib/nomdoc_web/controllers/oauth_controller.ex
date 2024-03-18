@@ -26,7 +26,7 @@ defmodule NomdocWeb.OAuthController do
   end
 
   defp get_google_token(conn, authorization_code) do
-    case GoogleOAuth.token(authorization_code, redirect_uri: "https://www.nomdoc.net:4001/oauth/google") do
+    case GoogleOAuth.token(authorization_code, redirect_uri: UserAuth.google_oauth_redirect_uri()) do
       {:ok, token} -> {:ok, token}
       {:error, _reason} -> render(conn, :invalid_code)
     end

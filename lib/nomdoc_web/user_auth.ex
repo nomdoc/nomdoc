@@ -229,4 +229,9 @@ defmodule NomdocWeb.UserAuth do
   defp maybe_store_return_to(conn), do: conn
 
   defp signed_in_path(_conn), do: ~p"/"
+
+  @doc """
+  Google OAuth redirect URI.
+  """
+  def google_oauth_redirect_uri, do: Application.fetch_env!(:nomdoc, NomdocWeb.UserAuth)[:google_oauth_redirect_uri]
 end

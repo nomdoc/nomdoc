@@ -59,6 +59,15 @@ config :nomdoc, HealthcareWeb.Endpoint,
   live_view: [signing_salt: "yw4HVkv8AZu2Ury2wH5WxkmEVICjh15UNp2jw1S8LoyrouqdQc5vzMDbyHsGntyq"],
   server: false
 
+# Configures www.nomdoc.com user auth
+config :nomdoc, NomdocWeb.UserAuth, google_oauth_redirect_uri: "https://www.nomdoc.com/oauth/google"
+
+# Configures workspace.nomdoc.com user auth
+config :nomdoc, WorkspaceWeb.UserAuth, google_oauth_redirect_uri: "https://workspace.nomdoc.com/oauth/google"
+
+# Configures healthcare.nomdoc.com user auth
+config :nomdoc, HealthcareWeb.UserAuth, google_oauth_redirect_uri: "https://healthcare.nomdoc.com/oauth/google"
+
 # Configures the Repo
 config :nomdoc, Nomdoc.Repo,
   types: Nomdoc.Repo.PostgrexTypes,

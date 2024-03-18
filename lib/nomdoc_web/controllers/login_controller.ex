@@ -2,11 +2,12 @@ defmodule NomdocWeb.LoginController do
   use NomdocWeb, :controller
 
   alias Nomdoc.GoogleOAuth
+  alias NomdocWeb.UserAuth
 
   def new(%Plug.Conn{} = conn, _params) do
     google_oauth_url =
       GoogleOAuth.authorization_url(
-        redirect_uri: "https://www.nomdoc.net:4001/oauth/google",
+        redirect_uri: UserAuth.google_oauth_redirect_uri(),
         scopes: ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
       )
 
