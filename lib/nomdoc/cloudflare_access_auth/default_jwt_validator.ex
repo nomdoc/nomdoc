@@ -1,4 +1,4 @@
-defmodule Nomdoc.Cloudflare.ApplicationTokenDefaultValidator do
+defmodule Nomdoc.CloudflareAccessAuth.DefaultJwtValidator do
   @moduledoc """
   Validates the application token included in the request as a
   `Cf-Access-Jwt-Assertion` request header and as a `CF_Authorization` cookie.
@@ -28,15 +28,15 @@ defmodule Nomdoc.Cloudflare.ApplicationTokenDefaultValidator do
 
   use Joken.Config, default_signer: nil
 
-  alias Nomdoc.Cloudflare
+  alias Nomdoc.CloudflareAccessAuth
 
-  add_hook(JokenJwks, strategy: Nomdoc.Cloudflare.Jwks)
+  add_hook(JokenJwks, strategy: Nomdoc.CloudflareAccessAuth.Jwks)
 
   @impl Joken.Config
   def token_config do
     default_claims(skip: [:aud, :iss, :jti])
-    |> add_claim("iss", nil, &(&1 == Cloudflare.Config.application_token_iss()))
-    |> add_claim("aud", nil, &(is_list(&1) && overlap?(&1, Cloudflare.Config.application_token_aud())))
+    |> add_claim("iss", nil, &(&1 == CloudflareAccessAuth.Config.jwt_iss()))
+    |> add_claim("aud", nil, &(is_list(&1) && overlap?(&1, CloudflareAccessAuth.Config.jwt_aud())))
     |> add_claim("email", nil, &is_binary/1)
   end
 

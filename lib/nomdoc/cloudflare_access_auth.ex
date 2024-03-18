@@ -1,7 +1,7 @@
-defmodule Nomdoc.Cloudflare.ApplicationToken do
+defmodule Nomdoc.CloudflareAccessAuth do
   @moduledoc false
 
-  alias Nomdoc.Cloudflare
+  alias Nomdoc.CloudflareAccessAuth
 
   @callback verify_and_validate(token :: binary()) :: :ok | :error
 
@@ -10,6 +10,6 @@ defmodule Nomdoc.Cloudflare.ApplicationToken do
   end
 
   defp adapter do
-    Cloudflare.Config.application_token_validator()
+    CloudflareAccessAuth.Config.jwt_validator()
   end
 end
