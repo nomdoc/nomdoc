@@ -5,12 +5,14 @@ defmodule Nomdoc.Repo.Migrations.CreateAccountsTables do
     create table(:users) do
       add :email_address, :string
       add :google_account_id, :string
+      add :cloudflare_access_user_id, :string
 
       timestamps()
     end
 
     create unique_index(:users, [:email_address])
     create unique_index(:users, [:google_account_id])
+    create unique_index(:users, [:cloudflare_access_user_id])
 
     create table(:user_tokens) do
       add :user_id, :binary_id

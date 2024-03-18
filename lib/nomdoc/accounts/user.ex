@@ -6,6 +6,7 @@ defmodule Nomdoc.Accounts.User do
   schema "users" do
     field :email_address, :string
     field :google_account_id, :string
+    field :cloudflare_access_user_id, :string
 
     timestamps()
   end
