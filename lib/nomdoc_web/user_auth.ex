@@ -24,6 +24,7 @@ defmodule NomdocWeb.UserAuth do
     sign: true,
     same_site: "Strict"
   ]
+  @session_context "www"
 
   @doc """
   Logs the user in.
@@ -38,7 +39,7 @@ defmodule NomdocWeb.UserAuth do
   if you are not using LiveView.
   """
   def log_in_user(conn, user) do
-    token = Accounts.generate_user_session_token(user)
+    token = Accounts.generate_user_session_token(user, @session_context)
     user_return_to = get_session(conn, :user_return_to)
 
     conn
@@ -76,7 +77,7 @@ defmodule NomdocWeb.UserAuth do
   """
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
-    user_token && Accounts.delete_user_session_token(user_token)
+    user_token && Accounts.delete_user_session_token(user_token, @session_context)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       NomdocWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
@@ -94,7 +95,7 @@ defmodule NomdocWeb.UserAuth do
   """
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
-    user = user_token && Accounts.get_user_by_session_token(user_token)
+    user = user_token && Accounts.get_user_by_session_token(user_token, @session_context)
     assign(conn, :current_user, user)
   end
 
@@ -179,7 +180,7 @@ defmodule NomdocWeb.UserAuth do
   defp mount_current_user(socket, session) do
     Phoenix.Component.assign_new(socket, :current_user, fn ->
       if user_token = session["user_token"] do
-        Accounts.get_user_by_session_token(user_token)
+        Accounts.get_user_by_session_token(user_token, @session_context)
       end
     end)
   end

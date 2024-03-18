@@ -81,34 +81,34 @@ defmodule Nomdoc.Accounts do
   @doc """
   Generates a session token.
   """
-  def generate_user_session_token(%User{} = user) do
-    {token, user_token} = build_session_token(user)
+  def generate_user_session_token(%User{} = user, context) do
+    {token, user_token} = build_session_token(user, context)
 
     Repo.insert!(user_token)
 
     token
   end
 
-  def build_session_token(user) do
+  def build_session_token(user, context) do
     token =
       Uniq.UUID.uuid4()
       |> Base.url_encode64(padding: false)
 
-    {token, %UserToken{token: token, context: "session", user_id: user.id}}
+    {token, %UserToken{token: token, context: "session:#{context}", user_id: user.id}}
   end
 
   @doc """
   Gets the user with the given signed token.
   """
-  def get_user_by_session_token(token) do
-    {:ok, query} = verify_session_token_query(token)
+  def get_user_by_session_token(token, context) do
+    {:ok, query} = verify_session_token_query(token, context)
 
     Repo.one(query)
   end
 
-  def verify_session_token_query(token) do
+  def verify_session_token_query(token, context) do
     query =
-      from token in user_token_by_token_and_context_query(token, "session"),
+      from token in user_token_by_token_and_context_query(token, "session:#{context}"),
         join: user in assoc(token, :user),
         where: token.inserted_at > ago(@session_validity_in_days, "day"),
         select: user
@@ -119,8 +119,8 @@ defmodule Nomdoc.Accounts do
   @doc """
   Deletes the signed token with the given context.
   """
-  def delete_user_session_token(token) do
-    user_token_by_token_and_context_query(token, "session")
+  def delete_user_session_token(token, context) do
+    user_token_by_token_and_context_query(token, "session:#{context}")
     |> Repo.delete_all()
 
     :ok
