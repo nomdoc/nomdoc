@@ -62,6 +62,8 @@ defmodule Nomdoc.MixProject do
 
       # Dev or build libs
       {:credo, "1.7.3", only: [:dev, :test], runtime: false},
+      {:ex_machina, "2.7.0", only: :test},
+      {:faker, "0.18.0", only: :test},
       {:floki, "0.35.2", only: :test},
       {:phoenix_live_reload, "1.4.1", only: :dev},
       {:tailwind, "0.2.2", runtime: Mix.env() == :dev}

@@ -99,7 +99,8 @@
              "Version",
              "Ecto",
              "Phoenix",
-             "Uniq"
+             "Uniq",
+             "Faker"
            ]
          ]},
         {Credo.Check.Design.DuplicatedCode, []},
